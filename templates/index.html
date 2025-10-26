@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load Balancing Simulator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Load Balancing Simulator</h1>
+            <p class="subtitle">HPC Task Distribution Visualization</p>
+        </header>
+
+        <div class="settings-panel">
+            <h3>Configuration</h3>
+            <div class="settings-grid">
+                <div class="setting-group">
+                    <label for="strategy">Strategy</label>
+                    <select id="strategy">
+                        <option value="round-robin">Round Robin</option>
+                        <option value="least-loaded">Least Loaded</option>
+                        <option value="random">Random</option>
+                        <option value="static">Static Partitioning</option>
+                    </select>
+                </div>
+                <div class="setting-group">
+                    <label for="workers">Workers: <span class="range-value" id="workers-value">4</span></label>
+                    <input type="range" id="workers" min="2" max="8" value="4">
+                </div>
+                <div class="setting-group">
+                    <label for="tasks">Tasks: <span class="range-value" id="tasks-value">20</span></label>
+                    <input type="range" id="tasks" min="10" max="50" value="20">
+                </div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="startBtn" class="btn-primary">▶ Start</button>
+            <button id="pauseBtn" class="btn-secondary" disabled>⏸ Pause</button>
+            <button id="resetBtn" class="btn-secondary">↻ Reset</button>
+            <div class="status-bar">
+                <span class="status-item">Step: <span id="step">0</span></span>
+                <span class="status-item">Completed: <span id="completed">0</span>/<span id="total">20</span></span>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="panel">
+                <h3>Workers</h3>
+                <div id="workers-container"></div>
+            </div>
+
+            <div class="panel">
+                <h3>Task Queue</h3>
+                <div id="tasks-container" class="tasks-container"></div>
+            </div>
+        </div>
+
+        <div class="panel" id="metrics-panel" style="display: none;">
+            <h3>Performance Metrics</h3>
+            <div class="metrics-grid" id="metrics-container"></div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
